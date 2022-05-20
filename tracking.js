@@ -31,14 +31,14 @@ function startTrack(){
 function stopTrack(){
     console.log("Stopped..")
     navigator.geolocation.clearWatch(geo);
-    posList.forEach(element => {
-        posEl.innerHTML = element + "<br>";
-    });
+    
+    posEl.innerHTML = posList;
 }
 
 function doSomething(latitude, longitude){
     posLat.push(latitude);
     posLong.push(longitude);
 
-    posList.push(latitude + " " + longitude);
+    posList.push("lat : " + latitude + " long: " + longitude + "<br>");
+    console.log(posList);
 }
