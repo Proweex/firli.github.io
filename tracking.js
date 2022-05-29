@@ -1,6 +1,10 @@
 // const testing = false;
 const testingEl1 = document.getElementById("testingPush");
 const testingEl2 = document.getElementById("testingSkip");
+// const latTest1 = -7.797068;
+// const longTest1 = 110.370529;
+// const latTest2 = -7.796000;
+// const longTest2 = 110.370000;
 
 const posEl = document.getElementById("position");
 const startEl = document.getElementById("start-btn");
@@ -10,14 +14,17 @@ const warnEl = document.getElementById("warn");
 const statEL = document.getElementById("status");
 const distanceEL = document.getElementById("distance");
 
-let watchID, distanceTravel;
+let watchID;
+let distanceTravel = 0;
 let stopTracking = true;
 let posLat = Array();
 let posLong =  Array();
 
-// let test2 = new Array(1,2);
+let test2 = 2;
 // let test3 = new Array("purple", "blue", "red");
 // console.log(test2.at(-2)+"---"+test3.at(-2));
+// test2 += distance(latTest1, longTest1, latTest2, longTest2);
+// console.log(test2);
 
 if ('geolocation' in navigator) {
 // if (testing){
@@ -49,7 +56,7 @@ function stopTrack(){
     navigator.geolocation.clearWatch(watchID);
     watchID = null;
     statEL.textContent = "";
-    distanceEL.textContent = "Distance Traveled : " + distance;
+    distanceEL.textContent = "Distance Traveled : " + distanceTravel;
 
     //testing start ==================================================
     testingEl1.classList.add("removed");
@@ -75,8 +82,10 @@ function doSomething(latitude, longitude){
 
         
         // console.log(posLat + "----" + posLong);
-        distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
-        distanceEL.textContent = distanceTravel;
+        if (posLat.length > 1){
+            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
+            distanceEL.textContent = distanceTravel;
+        }
         
     }else{
         //testing start ==================================================
@@ -89,6 +98,7 @@ function doSomething(latitude, longitude){
     }
 
     statEL.textContent = "Tracking";
+    distanceEL.textContent = "Distance Traveled : " + distanceTravel;
     // posEl.innerHTML += latitude + " " + longitude + "<br>";
     // console.log(posLat);
 }
