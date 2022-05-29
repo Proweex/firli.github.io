@@ -73,11 +73,11 @@ function doSomething(latitude, longitude){
         
         //testing end ====================================================
 
-        if (posLat.length == 2){
-            // console.log(posLat + "----" + posLong);
-            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
-            distanceEL.textContent = distanceTravel;
-        }
+        
+        // console.log(posLat + "----" + posLong);
+        distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
+        distanceEL.textContent = distanceTravel;
+        
     }else{
         //testing start ==================================================
         console.log("skipped");
