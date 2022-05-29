@@ -49,7 +49,7 @@ function stopTrack(){
     navigator.geolocation.clearWatch(watchID);
     watchID = null;
     statEL.textContent = "";
-    distanceEL.textContent = "distance";
+    distanceEL.textContent = "Distance Traveled : " + distance;
 
     //testing start ==================================================
     testingEl1.classList.add("removed");
