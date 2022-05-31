@@ -6,6 +6,7 @@
 // const latTest2 = -7.796000;
 // const longTest2 = 110.370000;
 
+const verEl = document.getElementById("appVersion");
 const posEl = document.getElementById("position");
 const startEl = document.getElementById("start-btn");
 const stopEl = document.getElementById("stop-btn");
@@ -19,8 +20,9 @@ let distanceTravel = 0;
 let stopTracking = true;
 let posLat = Array();
 let posLong =  Array();
+verEl.textContent = "test v0.0.1";
 
-let test2 = 2;
+// let test2 = 2;
 // let test3 = new Array("purple", "blue", "red");
 // console.log(test2.at(-2)+"---"+test3.at(-2));
 // test2 += distance(latTest1, longTest1, latTest2, longTest2);
@@ -67,17 +69,16 @@ function success(latitude, longitude, accuracy){
         posLong.push(longitude);
         
         // console.log(posLat + "----" + posLong);
-        if (posLat.length > 5){
-            distanceTravel += distance(posLat.at(-5), posLong.at(-5), posLat.at(-1), posLong.at(-1))
-            // distanceEL.textContent = distanceTravel;
+        if (posLat.length > 2){
+            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
+            posEl.innerHTML += `last position: ${latitude} ${longitude} ${accuracy} m <br>`;
         }
         
     }
 
     statEL.textContent = "Tracking";
-    distanceEL.textContent = distanceTravel + " km";
-    posEl.innerHTML += `X - ${latitude} ${longitude} ${accuracy} m <br>`;
-    navigator.geolocation.getCurrentPosition(successs, error, options);
+    distanceEL.textContent = `${distanceTravel} km`;
+    
     // console.log(posLat);
 }
 
@@ -112,27 +113,3 @@ function showError(error){
             break;
       }
 }
-
-// testing ===================================
-var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
-
-function successs(pos) {
-    var crd = pos.coords;
-
-    console.log('Your current position is:');
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
-    posEl.innerHTML += `O - ${crd.latitude} ${crd.longitude} ${crd.accuracy} m<br>`;
-}
-
-function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-// navigator.geolocation.getCurrentPosition(success, error, options);
-// testing end ===================================
