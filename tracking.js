@@ -86,7 +86,7 @@ function success(latitude, longitude, accuracy){
 
 // code by https://stackoverflow.com/a/21623206
 function distance(lat1, lon1, lat2, lon2) {
-    var p = Math.PI;    //0.017453292519943295;    // Math.PI / 180
+    var p = 0.017453292519943295;    // Math.PI / 180
     var c = Math.cos;
     var a = 0.5 - c((lat2 - lat1) * p)/2 + 
             c(lat1 * p) * c(lat2 * p) * 
@@ -97,7 +97,7 @@ function distance(lat1, lon1, lat2, lon2) {
 
 // code by https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341
 function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-    var deg2rad = deg => deg * 0.017453293;
+    var deg2rad = deg => deg * 0.017453292519943295;
     var a = Math.pow(Math.sin(deg2rad(lat2 - lat1) / 2), 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
         Math.pow(Math.sin(deg2rad(lon2 - lon1) / 2), 2);
