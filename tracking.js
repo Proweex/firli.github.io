@@ -71,16 +71,19 @@ function success(latitude, longitude, accuracy){
         
         // console.log(posLat + "----" + posLong);
         if (posLat.length > 2){
-            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
-            distanceTravel2 += getDistanceFromLatLonInM(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
-            posEl.innerHTML += `last position: ${latitude} ${longitude} ${accuracy} m <br>`;
+            let newDistance = distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
+            if (newDistance*1000 > 1){
+                distanceTravel += newDistance;
+                // distanceTravel2 += getDistanceFromLatLonInM(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
+            }
+            posEl.innerHTML += `last position: ${latitude} ${longitude} ${accuracy.toFixed(2)} m <br>`;
         }
         
     }
 
     statEL.textContent = "Tracking";
-    distanceEL.textContent = `${distanceTravel}`;
-    testingEl1.textContent = `${distanceTravel2} m`
+    distanceEL.textContent = `${distanceTravel} km`;
+    // testingEl1.textContent = `${distanceTravel2} m`
     // console.log(posLat);
 }
 
@@ -96,13 +99,13 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 // code by https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341
-function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-    var deg2rad = deg => deg * 0.017453292519943295;
-    var a = Math.pow(Math.sin(deg2rad(lat2 - lat1) / 2), 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.pow(Math.sin(deg2rad(lon2 - lon1) / 2), 2);
-    return 12742000 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
+// function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+//     var deg2rad = deg => deg * 0.017453292519943295;
+//     var a = Math.pow(Math.sin(deg2rad(lat2 - lat1) / 2), 2) +
+//         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+//         Math.pow(Math.sin(deg2rad(lon2 - lon1) / 2), 2);
+//     return 12742000 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+// }
 
 // code by https://stackoverflow.com/a/14862073
 function showError(error){
