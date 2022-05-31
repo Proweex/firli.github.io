@@ -1,5 +1,5 @@
 // const testing = false;
-// const testingEl1 = document.getElementById("testing1");
+const testingEl1 = document.getElementById("testing1");
 // const testingEl2 = document.getElementById("testing2");
 // const latTest1 = -7.797068;
 // const longTest1 = 110.370529;
@@ -17,10 +17,11 @@ const distanceEL = document.getElementById("distance");
 
 let watchID;
 let distanceTravel = 0;
+let distanceTravel2 = 0;
 let stopTracking = true;
 let posLat = Array();
 let posLong =  Array();
-verEl.textContent = "test v0.0.1";
+verEl.textContent = "test v0.0.2";
 
 // let test2 = 2;
 // let test3 = new Array("purple", "blue", "red");
@@ -70,15 +71,16 @@ function success(latitude, longitude, accuracy){
         
         // console.log(posLat + "----" + posLong);
         if (posLat.length > 2){
-            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
+            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
+            distanceTravel2 += getDistanceFromLatLonInM(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1));
             posEl.innerHTML += `last position: ${latitude} ${longitude} ${accuracy} m <br>`;
         }
         
     }
 
     statEL.textContent = "Tracking";
-    distanceEL.textContent = `${distanceTravel} km`;
-    
+    distanceEL.textContent = `${distanceTravel}`;
+    testingEl1.textContent = `${distanceTravel2} m`
     // console.log(posLat);
 }
 
@@ -91,6 +93,15 @@ function distance(lat1, lon1, lat2, lon2) {
             (1 - c((lon2 - lon1) * p))/2;
   
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
+
+// code by https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341
+function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+    var deg2rad = deg => deg * 0.017453293;
+    var a = Math.pow(Math.sin(deg2rad(lat2 - lat1) / 2), 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.pow(Math.sin(deg2rad(lon2 - lon1) / 2), 2);
+    return 12742000 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 // code by https://stackoverflow.com/a/14862073
