@@ -1,6 +1,6 @@
 // const testing = false;
-const testingEl1 = document.getElementById("testingPush");
-const testingEl2 = document.getElementById("testingSkip");
+// const testingEl1 = document.getElementById("testing1");
+// const testingEl2 = document.getElementById("testing2");
 // const latTest1 = -7.797068;
 // const longTest1 = 110.370529;
 // const latTest2 = -7.796000;
@@ -43,8 +43,8 @@ function startTrack(){
 
     stopTracking = false;
     watchID = navigator.geolocation.watchPosition((position) => { 
-        doSomething(position.coords.latitude, position.coords.longitude);
-    });
+        success(position.coords.latitude, position.coords.longitude);
+    }, showError);
 }
 
 function stopTrack(){
@@ -56,50 +56,28 @@ function stopTrack(){
     navigator.geolocation.clearWatch(watchID);
     watchID = null;
     statEL.textContent = "";
-    distanceEL.textContent = "Distance Traveled : " + distanceTravel;
-
-    //testing start ==================================================
-    testingEl1.classList.add("removed");
-    testingEl2.classList.add("removed");
-    //testing end ==================================================
+    distanceEL.textContent = distanceTravel + " km";
 }
 
-function doSomething(latitude, longitude){
+function success(latitude, longitude){
     console.log("Tracking")
 
     if (posLat.at(-1) != latitude || posLong.at(-1) != longitude){ 
         posLat.push(latitude);
         posLong.push(longitude);
-
-        //testing start ==================================================
-        console.log("pushed");
-        
-        testingEl1.classList.remove("removed")
-    
-        testingEl2.classList.add("removed");
-        
-        //testing end ====================================================
-
         
         // console.log(posLat + "----" + posLong);
-        if (posLat.length > 1){
-            distanceTravel += distance(posLat.at(-2), posLong.at(-2), posLat.at(-1), posLong.at(-1))
-            distanceEL.textContent = distanceTravel;
+        if (posLat.length > 5){
+            distanceTravel += distance(posLat.at(-5), posLong.at(-5), posLat.at(-1), posLong.at(-1))
+            // distanceEL.textContent = distanceTravel;
         }
         
-    }else{
-        //testing start ==================================================
-        console.log("skipped");
-        
-        testingEl2.classList.remove("removed");
-        testingEl1.classList.add("removed");
-        
-        //testing end ====================================================
     }
 
     statEL.textContent = "Tracking";
-    distanceEL.textContent = "Distance Traveled : " + distanceTravel;
-    // posEl.innerHTML += latitude + " " + longitude + "<br>";
+    distanceEL.textContent = distanceTravel + " km";
+    posEl.innerHTML += latitude + " " + longitude + "<br>";
+    navigator.geolocation.getCurrentPosition(successs, error, options);
     // console.log(posLat);
 }
 
@@ -113,3 +91,48 @@ function distance(lat1, lon1, lat2, lon2) {
   
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
+
+// code by https://stackoverflow.com/a/14862073
+function showError(error){
+    contentEL.classList.add("removed");
+    startEl.disabled = true;
+    stopEl.disabled = true;
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            statEL.textContent = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            statEL.textContent = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            statEL.textContent = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            statEL.textContent = "An unknown error occurred."
+            break;
+      }
+}
+
+// testing ===================================
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+function successs(pos) {
+    var crd = pos.coords;
+
+    console.log('Your current position is:');
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+    posEl.innerHTML += `getPosition : ${crd.latitude} ${crd.longitude} ${crd.accuracy}m<br>`;
+}
+
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+// navigator.geolocation.getCurrentPosition(success, error, options);
+// testing end ===================================
