@@ -21,7 +21,7 @@ let distanceTravel2 = 0;
 let stopTracking = true;
 let posLat = Array();
 let posLong =  Array();
-verEl.textContent = "test v0.0.2";
+verEl.textContent = "test v0.0.3";
 
 // let test2 = 2;
 // let test3 = new Array("purple", "blue", "red");
