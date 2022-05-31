@@ -43,7 +43,7 @@ function startTrack(){
 
     stopTracking = false;
     watchID = navigator.geolocation.watchPosition((position) => { 
-        success(position.coords.latitude, position.coords.longitude);
+        success(position.coords.latitude, position.coords.longitude, position.coords.accuracy);
     }, showError);
 }
 
@@ -59,7 +59,7 @@ function stopTrack(){
     distanceEL.textContent = distanceTravel + " km";
 }
 
-function success(latitude, longitude){
+function success(latitude, longitude, accuracy){
     console.log("Tracking")
 
     if (posLat.at(-1) != latitude || posLong.at(-1) != longitude){ 
@@ -76,7 +76,7 @@ function success(latitude, longitude){
 
     statEL.textContent = "Tracking";
     distanceEL.textContent = distanceTravel + " km";
-    posEl.innerHTML += latitude + " " + longitude + "<br>";
+    posEl.innerHTML += `X - ${latitude} ${longitude} ${accuracy} m <br>`;
     navigator.geolocation.getCurrentPosition(successs, error, options);
     // console.log(posLat);
 }
@@ -127,7 +127,7 @@ function successs(pos) {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`More or less ${crd.accuracy} meters.`);
-    posEl.innerHTML += `getPosition : ${crd.latitude} ${crd.longitude} ${crd.accuracy}m<br>`;
+    posEl.innerHTML += `O - ${crd.latitude} ${crd.longitude} ${crd.accuracy} m<br>`;
 }
 
 function error(err) {
