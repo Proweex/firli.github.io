@@ -13,6 +13,7 @@ const list_motor = document.getElementById("list_motor");
 
 // data
 var toStringify = [];
+var motorList = JSON.parse(localStorage.getItem("motors"));
 
 // List all available motor data
 showMotorList();
@@ -65,6 +66,7 @@ function hide_id(el){
 }
 
 function showMotorList() {
+      
     motorList = JSON.parse(localStorage.getItem("motors"));
     
     // clear field
@@ -73,13 +75,16 @@ function showMotorList() {
     for (item in motorList) {
         list_motor.innerHTML += `<li> ${motorList[item][0]} : ${motorList[item][1]} km </li>`;
         //      console.log(`${key} : ${value}`);
-        console.log(motorList[item]);
+        // console.log(motorList[item]);
     }
     console.log("showMotorList");
 }
 
 function saveToStorage(key, value){
 
+    for (i in motorList) {
+        toStringify.push(motorList[i]);
+    }
     toStringify.push([key,value]);
 
     localStorage.setItem("motors", JSON.stringify(toStringify));
