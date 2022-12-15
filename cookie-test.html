@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cookie Test</title>
+</head>
+<body>
+    <p>cookie test</p>
+    <p>max panjang string</p>
+    <p>insert, update and delete cookies</p>
+    <ul>
+        <li>user write texts - <b>done</b></li>
+        <li>user push button that insert new <b>cookies</b> localStorage - <b>done</b></li>
+        <li>system read <s>cookies</s> localStorage and display to user - <b>done</b></li>
+        <li>system update <s>cookies</s> localStorage and display new <s>cookies</s> localStorage to user - <b>done</b></li>
+        <li>user click button to delete <s>cookies</s> an item from localStorage</li>
+        <li>system delete <s>cookies</s> all localStorage - <b>done</b></li>
+        <li>figure out Object.keys sorting - <b>done</b></li>
+        <li>add new page with data transfer</li>
+    </ul>
+
+    <s>re think, gimana login?? cookie tidak bisa cross device, localStorage sama plus hilang saat user clear cache browser</s>
+
+    <div id="title">Cookie Test</div>
+    
+    <div id="list_motor"></div>
+
+    <div id="cookie_prompt" class="hide">
+        <div id="sideTitle">User Write Prompt</div><br>
+
+        <label for="nama_motor">Nama Motor :</label>
+        <input type="text" id="nama_motor"> <br>
+        <label for="km_number">Jumlah KM : </label>
+        <input type="number" id="km_number"> <br>
+        <button id="showBtn">Show</button>
+    </div>
+
+    <div id="kosong">
+        <button id="input_dataBtn">Tambah Data</button>
+        <button id="delete_allBtn">Hapus Semua Data</button>
+    </div>
+
+
+
+    <script src="cookie-test.js"></script>
+</body>
+</html>
